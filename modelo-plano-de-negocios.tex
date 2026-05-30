@@ -1,0 +1,1032 @@
+% ============================================================
+%  MODELO DE PLANO DE NEGOCIOS -- Padrão ABNT (abntex2)
+%  Baseado em: Dornelas, Sebrae, Pirola
+%  Uso livre por qualquer empreendedor
+% ============================================================
+
+\documentclass[
+	12pt,
+	openright,
+	oneside,
+	a4paper,
+	chapter=TITLE,
+	section=TITLE,
+	english,
+	french,
+	spanish,
+	brazil
+	]{abntex2}
+
+% --- Pacotes essenciais ---
+\usepackage{newtxtext,newtxmath}          % Times New Roman (ABNT)
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{indentfirst}
+\usepackage{xcolor}                       % Cores (substitui color)
+\usepackage{colortbl}                     % Cores em tabelas
+\usepackage{graphicx}
+\usepackage{microtype}
+\usepackage{booktabs}
+\usepackage{tabularx}
+\usepackage{multirow}
+\usepackage{float}
+\usepackage{amsmath}
+\usepackage{enumitem}
+\usepackage{setspace}                     % Controle de espaçamento
+\usepackage{csquotes}                     % Aspas sensíveis ao idioma
+\usepackage[style=abnt, backend=biber]{biblatex}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+% --- Arquivo de referências ---
+\addbibresource{referencias.bib}
+
+% --- Definição de cores ---
+\definecolor{azul-abnt}{RGB}{41,5,195}
+\definecolor{azul-claro}{RGB}{235,238,255}   % Fundo de tabelas
+\definecolor{cinza-instrucao}{gray}{0.50}
+\definecolor{cinza-borda}{gray}{0.70}
+
+% ============================================================
+%  COMANDOS CUSTOMIZADOS
+% ============================================================
+
+% Campo preenchível com largura fixa (uso inline)
+\newcommand{\campo}[2][6cm]{%
+	\underline{\makebox[#1][l]{#2}}%
+}
+
+% Campo preenchível que ocupa o restante da linha (listas)
+\newcommand{\icampo}{%
+	\hrulefill
+}
+
+% Campo preenchível para células de tabela (largura flexível)
+\newcommand{\tcampo}[1]{%
+	{#1}%
+}
+
+% Instrução formatada com caixa sutil
+\newcommand{\instrucao}[1]{%
+	\vspace{0.3cm}%
+	\noindent%
+	{%
+		\setlength{\fboxsep}{6pt}%
+		\colorbox{azul-claro}{%
+			\begin{minipage}{\dimexpr\textwidth-2\fboxsep\relax}%
+				\setlength{\parindent}{1.25cm}%
+				{\color{cinza-instrucao}\small\itshape #1}%
+			\end{minipage}%
+		}%
+	}%
+	\vspace{0.3cm}%
+}
+
+% Linha de preenchimento (para formulários)
+\newcommand{\linha}[1][0.4pt]{%
+	\rule{\linewidth}{#1}%
+}
+
+% ============================================================
+%  CONFIGURAÇÕES ABNT
+% ============================================================
+
+% Margens ABNT (confirmadas)
+% abntex2 já define: esquerda=3cm, direita=2cm, topo=3cm, base=2cm
+
+% Espaçamento 1.5 entrelinhas (padrão ABNT)
+\OnehalfSpacing
+
+% Parágrafo: recuo de 1,25 cm (ABNT)
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0.0cm}   % sem espaço extra entre parágrafos
+
+% Suprimir avisos de overfull/underfull (campos preenchíveis produzem linhas vazias)
+\hbadness=10000
+\hfuzz=36pt
+
+% ============================================================
+%  ESTILO DE CABEÇALHO / RODAPÉ (memoir, sem fancyhdr)
+% ============================================================
+
+\makepagestyle{planoheader}
+\makeoddhead{planoheader}%
+	{\small\itshape Plano de Negócios}%
+	{}%
+	{\small\thepage}
+\makeheadrule{planoheader}{\textwidth}{0.4pt}
+\makefootrule{planoheader}{\textwidth}{0pt}{}
+
+\newcommand{\configurarcabecalho}{%
+	\pagestyle{planoheader}%
+}
+
+% ============================================================
+%  ESTILO DE CAPÍTULOS E SEÇÕES (ABNT)
+% ============================================================
+
+% Formato dos títulos de capítulo: centralizado, negrito, caixa alta
+% O pacote abntex2 já aplica boa parte. Reforçamos:
+\renewcommand{\ABNTEXchapterfont}{\normalfont\bfseries}
+\renewcommand{\ABNTEXchapterfontsize}{\Large}
+
+% ABNT: títulos de seção alinhados à esquerda, negrito, caixa alta
+\renewcommand{\ABNTEXsectionfont}{\normalfont\bfseries}
+\renewcommand{\ABNTEXsectionfontsize}{\large}
+
+% ============================================================
+%  INFORMAÇÕES DA CAPA / FOLHA DE ROSTO
+% ============================================================
+
+\titulo{Plano de Negócios}
+\autor{[Nome do Empreendedor ou Equipe]}
+\local{[Cidade -- UF]}
+\data{[\today]}
+\instituicao{%
+	[Nome da Empresa]
+	\par
+	[Setor de Atuação / Segmento]%
+}
+\preambulo{Plano de negócios apresentado como ferramenta de planejamento e captação de recursos para o empreendimento [Nome da Empresa].}
+
+% --- Configurações de hiperlinks ---
+\makeatletter
+\hypersetup{
+	pdftitle={\@title},
+	pdfauthor={\@author},
+	pdfsubject={Plano de Negócios},
+	pdfcreator={LaTeX with abnTeX2},
+	colorlinks=true,
+	linkcolor=azul-abnt,
+	citecolor=azul-abnt,
+	urlcolor=azul-abnt,
+	bookmarksdepth=4
+}
+\makeatother
+
+% --- Ajustes de float ---
+\makeatletter
+\setlength{\@fptop}{5pt}
+\makeatother
+
+% --- Quadros ABNT ---
+\newcommand{\quadroname}{Quadro}
+\newcommand{\listofquadrosname}{Lista de quadros}
+\newfloat{quadro}{loq}{\quadroname}
+\newlistof{listofquadros}{loq}{\listofquadrosname}
+\newlistentry{quadro}{loq}{0}
+\setfloatadjustment{quadro}{\centering}
+\counterwithout{quadro}{chapter}
+\renewcommand{\cftquadroname}{\quadroname\space}
+\renewcommand*{\cftquadroaftersnum}{\hfill--\hfill}
+\setfloatlocations{quadro}{hbtp}
+
+% --- Índice ---
+\makeindex
+
+% ============================================================
+%  INÍCIO DO DOCUMENTO
+% ============================================================
+\begin{document}
+
+\selectlanguage{brazil}
+\frenchspacing
+
+% --- Capa / Folha de Rosto ---
+\imprimirfolhaderosto
+
+% --- Sumário ---
+\tableofcontents*
+\clearpage
+
+% --- Configurar cabeçalho após capa ---
+\configurarcabecalho
+
+% ============================================================
+%  ELEMENTOS TEXTUAIS
+% ============================================================
+\textual
+
+% -------------------------------------------------------
+%  1. SUMÁRIO EXECUTIVO
+% -------------------------------------------------------
+\chapter{Sumário Executivo}
+
+\instrucao{Esta seção deve ser escrita por último. Resumo completo do plano em 1--2 páginas. Destaque os pontos mais importantes para atrair o leitor (investidor, sócio, banco).}
+
+\section{Conceito do Negócio}
+
+\begin{tabular}{r l}
+\textbf{Nome da Empresa:} & \campo[8cm]{} \\[0.3cm]
+\textbf{Setor:}           & \campo[5cm]{} \\[0.3cm]
+\textbf{Porte:}           & \campo[5cm]{ME / EPP / MEI} \\[0.3cm]
+\textbf{Forma Jurídica:}  & \campo[5cm]{LTDA / EIRELI / SLU} \\[0.3cm]
+\textbf{Localização:}     & \campo[8cm]{} \\
+\end{tabular}
+
+\vspace{0.5cm}
+\textbf{Missão:} \campo[12cm]{}
+
+\vspace{0.3cm}
+\textbf{Visão:} \campo[12cm]{}
+
+\vspace{0.3cm}
+\textbf{Valores:} \campo[12cm]{}
+
+\section{Oportunidade}
+
+\instrucao{Qual o problema não resolvido do mercado? Como seu negócio resolve? Qual a janela de oportunidade?}
+
+\section{Mercado e Vantagens Competitivas}
+
+\instrucao{Tamanho do mercado, público-alvo, concorrentes e diferenciais.}
+
+\section{Equipe de Gestão}
+
+\instrucao{Principais sócios e executivos, formação e experiência.}
+
+\section{Projeções Financeiras}
+
+\vspace{0.2cm}
+\begin{tabularx}{\textwidth}{X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Indicador} & \textbf{Valor} \\
+\midrule
+Investimento Inicial              & R\$ \hrulefill \\
+Faturamento Estimado (Ano 1)     & R\$ \hrulefill \\
+Margem Líquida Esperada           & \hrulefill\ \% \\
+Payback Estimado                  & \hrulefill\ meses \\
+TIR Estimada                      & \hrulefill\ \% a.a. \\
+\bottomrule
+\end{tabularx}
+
+\section{Aporte Necessário}
+
+\instrucao{Recursos necessários, finalidade, prazo e contrapartida oferecida.}
+
+\clearpage
+
+% -------------------------------------------------------
+%  2. CONCEITO DO NEGÓCIO
+% -------------------------------------------------------
+\chapter{Conceito do Negócio}
+
+\section{Histórico da Empresa}
+
+\instrucao{Como surgiu a ideia? Há empresa constituída ou é novo empreendimento?}
+
+\section{Missão, Visão e Valores}
+
+\begin{tabularx}{\textwidth}{r X}
+\textbf{Missão:}   & \tcampo{} \\[0.3cm]
+\textbf{Visão:}    & \tcampo{} \\[0.3cm]
+\textbf{Valores:}  & \tcampo{} \\
+\end{tabularx}
+
+\section{Aspectos Legais e Societários}
+
+\begin{tabularx}{\textwidth}{r X}
+\textbf{Forma Jurídica:}       & \tcampo{} \\[0.3cm]
+\textbf{Composição Societária:} & \tcampo{} \\[0.3cm]
+\textbf{CNPJ:}                 & \tcampo{} \\[0.3cm]
+\textbf{Registro / Licenças:}  & \tcampo{} \\
+\end{tabularx}
+
+\section{Localização e Abrangência}
+
+\instrucao{Onde a empresa está ou se localizará? Qual área geográfica atenderá inicialmente?}
+
+\section{Parcerias e Terceirizações}
+
+\instrucao{Fornecedores estratégicos, parceiros de negócios, consultorias.}
+
+\clearpage
+
+% -------------------------------------------------------
+%  3. ANÁLISE DE MERCADO
+% -------------------------------------------------------
+\chapter{Análise de Mercado}
+
+\section{Análise Setorial (Macroambiente)}
+
+\instrucao{Análise PEST: fatores Políticos, Econômicos, Sociais e Tecnológicos que afetam o setor.}
+
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Fator} & \textbf{Impacto no Negócio} \\
+\midrule
+Político-Legal  & \tcampo{} \\
+Econômico       & \tcampo{} \\
+Sociocultural   & \tcampo{} \\
+Tecnológico     & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Mercado-Alvo}
+
+\subsection{Segmentação de Clientes}
+
+\instrucao{Quem compra, o que compra, por que compra, como compra e onde está?}
+
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Variável} & \textbf{Descrição} \\
+\midrule
+Perfil Demográfico  & \tcampo{} \\
+Comportamento       & \tcampo{} \\
+Necessidades        & \tcampo{} \\
+Região Geográfica   & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Tamanho de Mercado}
+
+\begin{tabularx}{\textwidth}{l X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Tipo} & \textbf{Valor} \\
+\midrule
+Mercado Total (R\$)          & \tcampo{} \\
+Mercado Potencial (R\$)      & \tcampo{} \\
+Participação Pretendida      & \tcampo{} \\
+Número Estimado de Clientes  & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Análise da Concorrência}
+
+\instrucao{Concorrentes diretos e indiretos. Compare com seu negócio nos 4Ps.}
+
+\begin{tabularx}{\textwidth}{X c c c c}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Concorrente} & \textbf{Qualidade} & \textbf{Preço} & \textbf{Local} & \textbf{Variedade} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\textbf{Sua Empresa} & \tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Vantagens Competitivas}
+
+\instrucao{O que torna seu negócio único? Por que o cliente escolherá você?}
+
+\begin{itemize}[itemsep=0.3cm]
+	\item \icampo
+	\item \icampo
+	\item \icampo
+\end{itemize}
+
+\section{Tendências do Setor}
+
+\instrucao{Inovações, mudanças de comportamento, novas regulamentações.}
+
+\clearpage
+
+% -------------------------------------------------------
+%  4. PRODUTOS E SERVIÇOS
+% -------------------------------------------------------
+\chapter{Produtos e Serviços}
+
+\section{Descrição do Portfólio}
+
+\begin{tabularx}{\textwidth}{X X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Produto / Serviço} & \textbf{Características} & \textbf{Benefícios} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Diferenciais e Inovação}
+
+\instrucao{O que torna seu produto/serviço diferente da concorrência? Há inovação tecnológica, de processo ou de modelo de negócios?}
+
+\section{Utilidade e Apelo ao Cliente}
+
+\instrucao{Qual a utilidade prática? Qual o apelo emocional ou racional para o cliente?}
+
+\section{Ciclo de Vida dos Produtos}
+
+\begin{tabularx}{\textwidth}{X c}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Produto} & \textbf{Estágio} \\
+\midrule
+\tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Tecnologia e Propriedade Intelectual}
+
+\instrucao{Tecnologia empregada, registro de marca, patentes, direitos autorais, P\&D.}
+
+\clearpage
+
+% -------------------------------------------------------
+%  5. PLANO DE MARKETING
+% -------------------------------------------------------
+\chapter{Plano de Marketing}
+
+\section{Objetivos de Marketing}
+
+\instrucao{Metas claras e mensuráveis: market share, clientes, receita, reconhecimento de marca.}
+
+\begin{enumerate}[itemsep=0.3cm]
+	\item \icampo
+	\item \icampo
+	\item \icampo
+\end{enumerate}
+
+\section{Posicionamento de Mercado}
+
+\instrucao{Como a empresa quer ser percebida pelo cliente? (Ex.: premium, custo-benefício, nicho, conveniência.)}
+
+\section{Estratégia de Marketing Mix (4Ps)}
+
+\subsection{Produto}
+
+\instrucao{Embalagem, marca, qualidade, garantia, serviços agregados, design.}
+
+\subsection{Preço}
+
+\begin{tabularx}{\textwidth}{X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Produto / Serviço} & \textbf{Preço Sugerido} \\
+\midrule
+\tcampo{} & R\$ \tcampo{} \\
+\tcampo{} & R\$ \tcampo{} \\
+\tcampo{} & R\$ \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Praça (Distribuição)}
+
+\instrucao{Lojas físicas, e-commerce, marketplaces, representantes, delivery, canais digitais.}
+
+\subsection{Promoção}
+
+\instrucao{Propaganda, marketing digital, redes sociais, relações públicas, promoção de vendas, endomarketing.}
+
+\begin{tabularx}{\textwidth}{X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Ação / Canal} & \textbf{Orçamento Mensal} \\
+\midrule
+Mídias Sociais          & R\$ \tcampo{} \\
+Google Ads / Meta Ads   & R\$ \tcampo{} \\
+Eventos / Feiras        & R\$ \tcampo{} \\
+Material Gráfico / Brindes & R\$ \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Cronograma de Marketing}
+
+\begin{tabularx}{\textwidth}{X X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Período} & \textbf{Ação} & \textbf{Custo} \\
+\midrule
+Mês 1       & \tcampo{} & R\$ \tcampo{} \\
+Mês 2--3    & \tcampo{} & R\$ \tcampo{} \\
+Mês 4--6    & \tcampo{} & R\$ \tcampo{} \\
+Mês 7--12   & \tcampo{} & R\$ \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Projeção de Vendas}
+
+\begin{tabularx}{\textwidth}{X r r r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Indicador} & \textbf{Ano 1} & \textbf{Ano 2} & \textbf{Ano 3} \\
+\midrule
+Clientes / mês     & \tcampo{} & \tcampo{} & \tcampo{} \\
+Ticket médio       & \tcampo{} & \tcampo{} & \tcampo{} \\
+Faturamento mensal & \tcampo{} & \tcampo{} & \tcampo{} \\
+Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\clearpage
+
+% -------------------------------------------------------
+%  6. PLANO OPERACIONAL
+% -------------------------------------------------------
+\chapter{Plano Operacional}
+
+\section{Estrutura Organizacional}
+
+\instrucao{Organograma, cargos, funções e responsabilidades.}
+
+\begin{tabularx}{\textwidth}{X X c}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Cargo} & \textbf{Função} & \textbf{Salário (R\$)} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Processos Operacionais}
+
+\instrucao{Fluxograma dos processos de produção ou prestação de serviços.}
+
+\begin{enumerate}[itemsep=0.3cm]
+	\item \icampo
+	\item \icampo
+	\item \icampo
+	\item \icampo
+	\item \icampo
+\end{enumerate}
+
+\section{Infraestrutura e Capacidade Produtiva}
+
+\begin{tabularx}{\textwidth}{X c c}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Qtde} & \textbf{Valor Unit.} \\
+\midrule
+\tcampo{} & \tcampo{} & R\$ \tcampo{} \\
+\tcampo{} & \tcampo{} & R\$ \tcampo{} \\
+\tcampo{} & \tcampo{} & R\$ \tcampo{} \\
+\tcampo{} & \tcampo{} & R\$ \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\vspace{0.3cm}
+\textbf{Capacidade produtiva:} \icampo
+
+\section{Fornecedores}
+
+\begin{tabularx}{\textwidth}{X X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Fornecedor} & \textbf{Produto / Serviço} & \textbf{Custo Mensal} \\
+\midrule
+\tcampo{} & \tcampo{} & R\$ \tcampo{} \\
+\tcampo{} & \tcampo{} & R\$ \tcampo{} \\
+\tcampo{} & \tcampo{} & R\$ \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Cronograma de Implementação}
+
+\begin{tabularx}{\textwidth}{X X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Atividade} & \textbf{Prazo} & \textbf{Responsável} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\clearpage
+
+% -------------------------------------------------------
+%  7. EQUIPE DE GESTÃO
+% -------------------------------------------------------
+\chapter{Equipe de Gestão}
+
+\section{Perfil dos Sócios e Executivos}
+
+\instrucao{Nome, formação, experiência relevante, papel na empresa.}
+
+\begin{tabularx}{\textwidth}{X X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Nome} & \textbf{Cargo} & \textbf{Experiência} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Conselho Consultivo e Mentores}
+
+\instrucao{Consultores, mentores, conselheiros que apoiam o negócio.}
+
+\section{Previsão de Crescimento de RH}
+
+\begin{tabularx}{\textwidth}{X c c c}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Cargo} & \textbf{Ano 1} & \textbf{Ano 2} & \textbf{Ano 3} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\textbf{Total Funcionários} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\clearpage
+
+% -------------------------------------------------------
+%  8. PLANO FINANCEIRO
+% -------------------------------------------------------
+\chapter{Plano Financeiro}
+
+\section{Investimento Inicial}
+
+\begin{tabularx}{\textwidth}{X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Valor (R\$)} \\
+\midrule
+Equipamentos e Máquinas       & \tcampo{} \\
+Móveis e Utensílios           & \tcampo{} \\
+Reforma / Obras / Instalação  & \tcampo{} \\
+Estoque Inicial               & \tcampo{} \\
+Capital de Giro               & \tcampo{} \\
+Despesas Pré-Operacionais     & \tcampo{} \\
+\midrule
+\textbf{TOTAL}                & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Fontes de Recursos}
+
+\begin{tabularx}{\textwidth}{X r X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Fonte} & \textbf{Valor (R\$)} & \textbf{Participação} \\
+\midrule
+Recursos Próprios                  & \tcampo{} & \tcampo{} \\
+Investidor Anjo / Venture Capital  & \tcampo{} & \tcampo{} \\
+Financiamento Bancário             & \tcampo{} & \tcampo{} \\
+Subvenção / Edital                 & \tcampo{} & \tcampo{} \\
+\midrule
+\textbf{TOTAL}                     & \tcampo{} & 100\,\% \\
+\bottomrule
+\end{tabularx}
+
+\section{Premissas Financeiras}
+
+\instrucao{Crescimento, inflação, impostos, prazos de recebimento e pagamento.}
+
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Premissa} & \textbf{Valor} \\
+\midrule
+Crescimento anual de vendas           & \tcampo{} \\
+Inflação projetada                    & \tcampo{} \\
+Impostos sobre faturamento            & \tcampo{} \\
+Prazo médio de recebimento            & \tcampo{} \\
+Prazo médio de pagamento              & \tcampo{} \\
+TMA (Taxa Mínima de Atratividade)     & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Projeção de Custos e Despesas}
+
+\begin{tabularx}{\textwidth}{X r r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Mensal (R\$)} & \textbf{Anual (R\$)} \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Custos Variáveis}} \\
+\quad Custo de Mercadorias / Insumos  & \tcampo{} & \tcampo{} \\
+\quad Comissões                       & \tcampo{} & \tcampo{} \\
+\quad Frete / Logística               & \tcampo{} & \tcampo{} \\
+\quad Impostos Variáveis              & \tcampo{} & \tcampo{} \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Custos Fixos}} \\
+\quad Aluguel                         & \tcampo{} & \tcampo{} \\
+\quad Salários + Encargos             & \tcampo{} & \tcampo{} \\
+\quad Pró-labore                      & \tcampo{} & \tcampo{} \\
+\quad Água, Luz, Telefone             & \tcampo{} & \tcampo{} \\
+\quad Internet / Sistemas             & \tcampo{} & \tcampo{} \\
+\quad Marketing                       & \tcampo{} & \tcampo{} \\
+\quad Contador / Assessoria           & \tcampo{} & \tcampo{} \\
+\quad Seguros                         & \tcampo{} & \tcampo{} \\
+\quad Depreciação                     & \tcampo{} & \tcampo{} \\
+\quad Outros                          & \tcampo{} & \tcampo{} \\
+\midrule
+\textbf{TOTAL}                        & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Projeção de Faturamento}
+
+\begin{tabularx}{\textwidth}{X r r r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Produto / Serviço} & \textbf{Preço Unit.} & \textbf{Qtde/mês} & \textbf{Receita Mensal} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\midrule
+\textbf{Total} & & & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Demonstrativo de Resultados (DRE) Projetado}
+
+\instrucao{Evolução dos resultados financeiros para 3 anos.}
+
+\begin{tabularx}{\textwidth}{X r r r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Ano 1} & \textbf{Ano 2} & \textbf{Ano 3} \\
+\midrule
+1. Receita Bruta                    & \tcampo{} & \tcampo{} & \tcampo{} \\
+2. (-{}) Deduções (Impostos)        & \tcampo{} & \tcampo{} & \tcampo{} \\
+\midrule
+3. = Receita Líquida               & \tcampo{} & \tcampo{} & \tcampo{} \\
+4. (-{}) Custos Operacionais        & \tcampo{} & \tcampo{} & \tcampo{} \\
+\midrule
+5. = Lucro Bruto                   & \tcampo{} & \tcampo{} & \tcampo{} \\
+6. (-{}) Despesas Operacionais      & \tcampo{} & \tcampo{} & \tcampo{} \\
+\midrule
+7. = Lucro Líquido                 & \tcampo{} & \tcampo{} & \tcampo{} \\
+8. Margem Líquida                  & \tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Fluxo de Caixa Projetado}
+
+\instrucao{Entradas e saídas de caixa previstas para os primeiros 12 meses.}
+
+\begin{table}[htbp]
+\caption{Fluxo de Caixa -- Primeiro Ano}
+\label{tab:fluxo-caixa}
+\footnotesize
+\begin{tabularx}{\textwidth}{X *{12}{c}}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Jan} & \textbf{Fev} & \textbf{Mar} & \textbf{Abr} & \textbf{Mai} & \textbf{Jun} & \textbf{Jul} & \textbf{Ago} & \textbf{Set} & \textbf{Out} & \textbf{Nov} & \textbf{Dez} \\
+\midrule
+Saldo Inicial  & & & & & & & & & & & & \\
+(+) Entradas   & & & & & & & & & & & & \\
+(-) Saídas     & & & & & & & & & & & & \\
+\midrule
+\textbf{Saldo Final} & & & & & & & & & & & & \\
+\bottomrule
+\end{tabularx}
+\legend{Fonte: elaborado pelo autor.}
+\end{table}
+
+\section{Indicadores de Viabilidade}
+
+\subsection{Ponto de Equilíbrio (Breakeven)}
+
+\[
+\text{Ponto de Equilíbrio} = \frac{\text{Custos Fixos Totais}}{\text{Margem de Contribuição Unitária}}
+= \frac{\text{R\$ }\,\tcampo{}}{\text{R\$ }\,\tcampo{}}
+= \tcampo{}\ \text{unidades/mês}
+\]
+
+\subsection{Payback}
+
+\begin{tabularx}{\textwidth}{X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Valor} \\
+\midrule
+Investimento Inicial            & R\$ \tcampo{} \\
+Fluxo de Caixa Médio Mensal     & R\$ \tcampo{} \\
+\textbf{Payback}                & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\subsection{Valor Presente Líquido (VPL)}
+
+\[
+VPL = \sum_{t=1}^{n} \frac{FC_t}{(1 + i)^t} - I_0
+= \tcampo{}
+\]
+
+\instrucao{VPL positivo indica viabilidade econômica.}
+
+\subsection{Taxa Interna de Retorno (TIR)}
+
+\[
+\text{TIR} = \tcampo{}\ \qquad
+\text{TMA} = \tcampo{}
+\]
+
+\instrucao{Se TIR $>$ TMA, o investimento é viável.}
+
+\subsection{Resumo dos Indicadores}
+
+\begin{tabularx}{\textwidth}{X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Indicador} & \textbf{Resultado} \\
+\midrule
+Investimento Inicial      & R\$ \tcampo{} \\
+Faturamento Ano 1         & R\$ \tcampo{} \\
+Lucro Líquido Ano 1       & R\$ \tcampo{} \\
+Margem Líquida            & \tcampo{} \\
+Payback                   & \tcampo{} \\
+VPL                       & R\$ \tcampo{} \\
+TIR                       & \tcampo{} \\
+Ponto de Equilíbrio       & \tcampo{} \\
+Índice de Lucratividade   & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\clearpage
+
+% -------------------------------------------------------
+%  9. ANÁLISE DE CENÁRIOS E RISCOS
+% -------------------------------------------------------
+\chapter{Análise de Cenários e Riscos}
+
+\section{Projeção de Cenários}
+
+\instrucao{Avalie o negócio em três cenários: pessimista, realista e otimista.}
+
+\begin{tabularx}{\textwidth}{X c c c}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Variável} & \textbf{Pessimista} & \textbf{Realista} & \textbf{Otimista} \\
+\midrule
+Clientes / mês      & \tcampo{} & \tcampo{} & \tcampo{} \\
+Ticket médio        & \tcampo{} & \tcampo{} & \tcampo{} \\
+Faturamento mensal  & \tcampo{} & \tcampo{} & \tcampo{} \\
+Margem líquida      & \tcampo{} & \tcampo{} & \tcampo{} \\
+Payback             & \tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Identificação e Classificação de Riscos}
+
+\instrucao{Classifique os riscos por probabilidade e impacto para priorizar a mitigação.}
+
+\begin{tabularx}{\textwidth}{X c c X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Risco} & \textbf{Prob.} & \textbf{Impacto} & \textbf{Estratégia de Mitigação} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Plano de Contingência}
+
+\instrucao{Ações pré-definidas caso um risco crítico se concretize.}
+
+\clearpage
+
+% -------------------------------------------------------
+%  10. ESTRATÉGIA DE CRESCIMENTO
+% -------------------------------------------------------
+\chapter{Estratégia de Crescimento}
+
+\section{Análise SWOT}
+
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Forças (Strengths)} & \textbf{Fraquezas (Weaknesses)} \\
+\midrule
+1. \tcampo{} & 1. \tcampo{} \\
+2. \tcampo{} & 2. \tcampo{} \\
+3. \tcampo{} & 3. \tcampo{} \\
+\addlinespace
+\rowcolor{azul-claro}
+\textbf{Oportunidades (Opportunities)} & \textbf{Ameaças (Threats)} \\
+\midrule
+1. \tcampo{} & 1. \tcampo{} \\
+2. \tcampo{} & 2. \tcampo{} \\
+3. \tcampo{} & 3. \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Objetivos e Metas SMART}
+
+\instrucao{Específicas, Mensuráveis, Atingíveis, Relevantes, com Prazo.}
+
+\begin{tabularx}{\textwidth}{X X c}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Objetivo} & \textbf{Meta} & \textbf{Prazo} \\
+\midrule
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\tcampo{} & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Estratégia de Entrada e Crescimento}
+
+\instrucao{Matriz Produto-Mercado (Ansoff): penetração, desenvolvimento de produto, expansão de mercado ou diversificação?}
+
+\begin{tabularx}{\textwidth}{X X}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Tipo} & \textbf{Descrição} \\
+\midrule
+Penetração de Mercado       & \tcampo{} \\
+Desenvolvimento de Produto  & \tcampo{} \\
+Expansão de Mercado         & \tcampo{} \\
+Diversificação              & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+
+\section{Riscos Críticos do Negócio}
+
+\instrucao{Fatores que podem inviabilizar o negócio e como mitigá-los.}
+
+\clearpage
+
+% -------------------------------------------------------
+%  11. CONSIDERAÇÕES FINAIS
+% -------------------------------------------------------
+\chapter{Considerações Finais}
+
+\instrucao{Reflexões finais sobre o potencial do negócio, impacto esperado e visão de futuro.}
+
+\vspace{0.5cm}
+
+\noindent\textbf{Conclusão:}
+
+\vspace{2cm}
+
+\noindent\textbf{Próximos passos:}
+\begin{enumerate}[itemsep=0.3cm]
+	\item \icampo
+	\item \icampo
+	\item \icampo
+\end{enumerate}
+
+\vspace{1.5cm}
+
+\begin{flushright}
+	[Cidade], \underline{\hspace{4cm}} de \underline{\hspace{3cm}} de \underline{\hspace{2cm}}. \\[1.5cm]
+	\rule{7cm}{0.4pt} \\[0.3cm]
+	\textbf{\campo[7cm]{}} \\
+	\textit{Empreendedor / Responsável}
+\end{flushright}
+
+\clearpage
+
+% -------------------------------------------------------
+%  12. REFERÊNCIAS
+% -------------------------------------------------------
+\chapter{Referências}
+
+\instrucao{Liste aqui todas as fontes consultadas para elaboração do plano: dados de mercado, relatórios setoriais, sites, livros.}
+
+\begin{enumerate}[itemsep=0.3cm]
+	\item \icampo
+	\item \icampo
+	\item \icampo
+	\item \icampo
+	\item \icampo
+\end{enumerate}
+
+\clearpage
+
+% -------------------------------------------------------
+%  13. ANEXOS
+% -------------------------------------------------------
+\chapter{Anexos}
+
+\instrucao{Documentos complementares: CVs, pesquisas, contratos, fotos, plantas baixas, layout, etc.}
+
+\begin{enumerate}[itemsep=0.3cm]
+	\item \icampo
+	\item \icampo
+	\item \icampo
+	\item \icampo
+	\item \icampo
+\end{enumerate}
+
+\vspace{1cm}
+
+{
+\centering
+\color{cinza-instrucao}
+\rule{0.6\textwidth}{0.4pt} \\[0.3cm]
+\textit{--- FIM DO MODELO ---} \\[0.3cm]
+\textit{O plano de negócios é um documento vivo. Revise e atualize sempre que o mercado ou o negócio mudar.}
+\par
+}
+
+\end{document}

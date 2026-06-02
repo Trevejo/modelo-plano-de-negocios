@@ -12,8 +12,6 @@
 	chapter=TITLE,
 	section=TITLE,
 	english,
-	french,
-	spanish,
 	brazil
 	]{abntex2}
 
@@ -103,7 +101,7 @@
 
 % Suprimir avisos de overfull/underfull (campos preenchíveis produzem linhas vazias)
 \hbadness=10000
-\hfuzz=36pt
+\hfuzz=1pt
 
 % ============================================================
 %  ESTILO DE CABEÇALHO / RODAPÉ (memoir, sem fancyhdr)
@@ -149,7 +147,7 @@
 }
 \preambulo{Plano de negócios apresentado como ferramenta de planejamento e captação de recursos para o empreendimento [Nome da Empresa].}
 
-% --- Configurações de hiperlinks ---
+% --- Configurações de hiperlinks e float ---
 \makeatletter
 \hypersetup{
 	pdftitle={\@title},
@@ -162,10 +160,6 @@
 	urlcolor=azul-abnt,
 	bookmarksdepth=4
 }
-\makeatother
-
-% --- Ajustes de float ---
-\makeatletter
 \setlength{\@fptop}{5pt}
 \makeatother
 
@@ -216,13 +210,14 @@
 
 \section{Conceito do Negócio}
 
-\begin{tabular}{r l}
+\centering
+\begin{tabularx}{\textwidth}{r X}
 \textbf{Nome da Empresa:} & \campo[8cm]{} \\[0.3cm]
 \textbf{Setor:}           & \campo[5cm]{} \\[0.3cm]
 \textbf{Porte:}           & \campo[5cm]{ME / EPP / MEI} \\[0.3cm]
 \textbf{Forma Jurídica:}  & \campo[5cm]{LTDA / EIRELI / SLU} \\[0.3cm]
 \textbf{Localização:}     & \campo[8cm]{} \\
-\end{tabular}
+\end{tabularx}
 
 \vspace{0.5cm}
 \textbf{Missão:} \campo[12cm]{}
@@ -248,6 +243,7 @@
 \section{Projeções Financeiras}
 
 \vspace{0.2cm}
+\centering
 \begin{tabularx}{\textwidth}{X r}
 \toprule
 \rowcolor{azul-claro}
@@ -260,6 +256,7 @@ Payback Estimado                  & \hrulefill\ meses \\
 TIR Estimada                      & \hrulefill\ \% a.a. \\
 \bottomrule
 \end{tabularx}
+\label{tab:projecoes-financeiras}
 
 \section{Aporte Necessário}
 
@@ -278,6 +275,7 @@ TIR Estimada                      & \hrulefill\ \% a.a. \\
 
 \section{Missão, Visão e Valores}
 
+\centering
 \begin{tabularx}{\textwidth}{r X}
 \textbf{Missão:}   & \tcampo{} \\[0.3cm]
 \textbf{Visão:}    & \tcampo{} \\[0.3cm]
@@ -286,6 +284,7 @@ TIR Estimada                      & \hrulefill\ \% a.a. \\
 
 \section{Aspectos Legais e Societários}
 
+\centering
 \begin{tabularx}{\textwidth}{r X}
 \textbf{Forma Jurídica:}       & \tcampo{} \\[0.3cm]
 \textbf{Composição Societária:} & \tcampo{} \\[0.3cm]
@@ -312,6 +311,7 @@ TIR Estimada                      & \hrulefill\ \% a.a. \\
 
 \instrucao{Análise PEST: fatores Políticos, Econômicos, Sociais e Tecnológicos que afetam o setor.}
 
+\centering
 \begin{tabularx}{\textwidth}{X X}
 \toprule
 \rowcolor{azul-claro}
@@ -330,6 +330,7 @@ Tecnológico     & \tcampo{} \\
 
 \instrucao{Quem compra, o que compra, por que compra, como compra e onde está?}
 
+\centering
 \begin{tabularx}{\textwidth}{X X}
 \toprule
 \rowcolor{azul-claro}
@@ -344,6 +345,7 @@ Região Geográfica   & \tcampo{} \\
 
 \subsection{Tamanho de Mercado}
 
+\centering
 \begin{tabularx}{\textwidth}{l X}
 \toprule
 \rowcolor{azul-claro}
@@ -355,11 +357,13 @@ Participação Pretendida      & \tcampo{} \\
 Número Estimado de Clientes  & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:tamanho-mercado}
 
 \section{Análise da Concorrência}
 
 \instrucao{Concorrentes diretos e indiretos. Compare com seu negócio nos 4Ps.}
 
+\centering
 \begin{tabularx}{\textwidth}{X c c c c}
 \toprule
 \rowcolor{azul-claro}
@@ -371,6 +375,7 @@ Número Estimado de Clientes  & \tcampo{} \\
 \textbf{Sua Empresa} & \tcampo{} & \tcampo{} & \tcampo{} & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:analise-concorrencia}
 
 \section{Vantagens Competitivas}
 
@@ -395,6 +400,7 @@ Número Estimado de Clientes  & \tcampo{} \\
 
 \section{Descrição do Portfólio}
 
+\centering
 \begin{tabularx}{\textwidth}{X X X}
 \toprule
 \rowcolor{azul-claro}
@@ -405,6 +411,7 @@ Número Estimado de Clientes  & \tcampo{} \\
 \tcampo{} & \tcampo{} & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:portfolio}
 
 \section{Diferenciais e Inovação}
 
@@ -416,6 +423,7 @@ Número Estimado de Clientes  & \tcampo{} \\
 
 \section{Ciclo de Vida dos Produtos}
 
+\centering
 \begin{tabularx}{\textwidth}{X c}
 \toprule
 \rowcolor{azul-claro}
@@ -430,6 +438,14 @@ Número Estimado de Clientes  & \tcampo{} \\
 \section{Tecnologia e Propriedade Intelectual}
 
 \instrucao{Tecnologia empregada, registro de marca, patentes, direitos autorais, P\&D.}
+
+\section{Segurança e Conformidade}
+
+\instrucao{Como a empresa garante a proteção de dados dos clientes e conformidade com legislação aplicável (ex.: LGPD, PCI-DSS)? Quais mecanismos técnicos e organizacionais são utilizados?}
+
+\section{Mecanismos de Segurança Adicionais}
+
+\instrucao{Funcionalidades extras de segurança: botão de pânico, validação de identidade, rastreamento, auditoria, etc.}
 
 \clearpage
 
@@ -460,6 +476,7 @@ Número Estimado de Clientes  & \tcampo{} \\
 
 \subsection{Preço}
 
+\centering
 \begin{tabularx}{\textwidth}{X r}
 \toprule
 \rowcolor{azul-claro}
@@ -470,6 +487,7 @@ Número Estimado de Clientes  & \tcampo{} \\
 \tcampo{} & R\$ \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:tabela-precos}
 
 \subsection{Praça (Distribuição)}
 
@@ -477,22 +495,18 @@ Número Estimado de Clientes  & \tcampo{} \\
 
 \subsection{Promoção}
 
-\instrucao{Propaganda, marketing digital, redes sociais, relações públicas, promoção de vendas, endomarketing.}
+\instrucao{Estratégias de divulgação: propaganda, marketing digital, redes sociais, relações públicas, promoção de vendas, endomarketing.}
 
-\begin{tabularx}{\textwidth}{X r}
-\toprule
-\rowcolor{azul-claro}
-\textbf{Ação / Canal} & \textbf{Orçamento Mensal} \\
-\midrule
-Mídias Sociais          & R\$ \tcampo{} \\
-Google Ads / Meta Ads   & R\$ \tcampo{} \\
-Eventos / Feiras        & R\$ \tcampo{} \\
-Material Gráfico / Brindes & R\$ \tcampo{} \\
-\bottomrule
-\end{tabularx}
+\begin{itemize}[itemsep=0.2cm]
+	\item \icampo
+	\item \icampo
+	\item \icampo
+	\item \icampo
+\end{itemize}
 
 \section{Cronograma de Marketing}
 
+\centering
 \begin{tabularx}{\textwidth}{X X r}
 \toprule
 \rowcolor{azul-claro}
@@ -507,6 +521,7 @@ Mês 7--12   & \tcampo{} & R\$ \tcampo{} \\
 
 \section{Projeção de Vendas}
 
+\centering
 \begin{tabularx}{\textwidth}{X r r r}
 \toprule
 \rowcolor{azul-claro}
@@ -518,6 +533,7 @@ Faturamento mensal & \tcampo{} & \tcampo{} & \tcampo{} \\
 Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:projecao-vendas}
 
 \clearpage
 
@@ -530,6 +546,7 @@ Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \instrucao{Organograma, cargos, funções e responsabilidades.}
 
+\centering
 \begin{tabularx}{\textwidth}{X X c}
 \toprule
 \rowcolor{azul-claro}
@@ -556,6 +573,7 @@ Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \section{Infraestrutura e Capacidade Produtiva}
 
+\centering
 \begin{tabularx}{\textwidth}{X c c}
 \toprule
 \rowcolor{azul-claro}
@@ -573,6 +591,7 @@ Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \section{Fornecedores}
 
+\centering
 \begin{tabularx}{\textwidth}{X X r}
 \toprule
 \rowcolor{azul-claro}
@@ -598,6 +617,10 @@ Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 \bottomrule
 \end{tabularx}
 
+\section{Infraestrutura MVP}
+
+\instrucao{Descreva a infraestrutura mínima necessária para o funcionamento do MVP (produto mínimo viável): servidores, ferramentas, serviços cloud, domínio, certificados, etc.}
+
 \clearpage
 
 % -------------------------------------------------------
@@ -609,6 +632,7 @@ Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \instrucao{Nome, formação, experiência relevante, papel na empresa.}
 
+\centering
 \begin{tabularx}{\textwidth}{X X X}
 \toprule
 \rowcolor{azul-claro}
@@ -626,6 +650,7 @@ Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \section{Previsão de Crescimento de RH}
 
+\centering
 \begin{tabularx}{\textwidth}{X c c c}
 \toprule
 \rowcolor{azul-claro}
@@ -647,6 +672,7 @@ Market-share       & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \section{Investimento Inicial}
 
+\centering
 \begin{tabularx}{\textwidth}{X r}
 \toprule
 \rowcolor{azul-claro}
@@ -662,9 +688,11 @@ Despesas Pré-Operacionais     & \tcampo{} \\
 \textbf{TOTAL}                & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:investimento-inicial}
 
 \section{Fontes de Recursos}
 
+\centering
 \begin{tabularx}{\textwidth}{X r X}
 \toprule
 \rowcolor{azul-claro}
@@ -683,6 +711,7 @@ Subvenção / Edital                 & \tcampo{} & \tcampo{} \\
 
 \instrucao{Crescimento, inflação, impostos, prazos de recebimento e pagamento.}
 
+\centering
 \begin{tabularx}{\textwidth}{X X}
 \toprule
 \rowcolor{azul-claro}
@@ -699,35 +728,78 @@ TMA (Taxa Mínima de Atratividade)     & \tcampo{} \\
 
 \section{Projeção de Custos e Despesas}
 
+\subsection{Pré-Lançamento (Ano 1)}
+
+\instrucao{Período de desenvolvimento e validação, sem receita comercial. Inclua apenas custos essenciais.}
+
+\centering
 \begin{tabularx}{\textwidth}{X r r}
 \toprule
 \rowcolor{azul-claro}
 \textbf{Item} & \textbf{Mensal (R\$)} & \textbf{Anual (R\$)} \\
 \midrule
-\multicolumn{3}{@{}l}{\textbf{Custos Variáveis}} \\
-\quad Custo de Mercadorias / Insumos  & \tcampo{} & \tcampo{} \\
-\quad Comissões                       & \tcampo{} & \tcampo{} \\
-\quad Frete / Logística               & \tcampo{} & \tcampo{} \\
-\quad Impostos Variáveis              & \tcampo{} & \tcampo{} \\
+\multicolumn{3}{@{}l}{\textbf{Custos Caixa}} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
 \midrule
-\multicolumn{3}{@{}l}{\textbf{Custos Fixos}} \\
-\quad Aluguel                         & \tcampo{} & \tcampo{} \\
-\quad Salários + Encargos             & \tcampo{} & \tcampo{} \\
-\quad Pró-labore                      & \tcampo{} & \tcampo{} \\
-\quad Água, Luz, Telefone             & \tcampo{} & \tcampo{} \\
-\quad Internet / Sistemas             & \tcampo{} & \tcampo{} \\
-\quad Marketing                       & \tcampo{} & \tcampo{} \\
-\quad Contador / Assessoria           & \tcampo{} & \tcampo{} \\
-\quad Seguros                         & \tcampo{} & \tcampo{} \\
-\quad Depreciação                     & \tcampo{} & \tcampo{} \\
-\quad Outros                          & \tcampo{} & \tcampo{} \\
+\textbf{Subtotal Caixa}                            & \tcampo{} & \tcampo{} \\
 \midrule
-\textbf{TOTAL}                        & \tcampo{} & \tcampo{} \\
+\multicolumn{3}{@{}l}{\textbf{Custos Não-Caixa}} \\
+\quad Sweat Equity (se aplicável)      & \tcampo{} & \tcampo{} \\
+\midrule
+\textbf{TOTAL}                                     & \tcampo{} & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:custos-pre-lancamento}
+
+\subsection{Pós-Lançamento (Ano 2)}
+
+\instrucao{Com o início da operação comercial, inclua pró-labore, marketing, infraestrutura escalada.}
+
+\centering
+\begin{tabularx}{\textwidth}{X r r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Mensal (R\$)} & \textbf{Anual (R\$)} \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Custos Fixos}} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\midrule
+\textbf{TOTAL}                                     & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+\label{tab:custos-pos-lancamento-ano2}
+
+\subsection{Pós-Lançamento (Ano 3)}
+
+\instrucao{Projeção com escala ampliada.}
+
+\centering
+\begin{tabularx}{\textwidth}{X r r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Item} & \textbf{Mensal (R\$)} & \textbf{Anual (R\$)} \\
+\midrule
+\multicolumn{3}{@{}l}{\textbf{Custos Fixos}} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\quad \tcampo{}                        & \tcampo{} & \tcampo{} \\
+\midrule
+\textbf{TOTAL}                                     & \tcampo{} & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+\label{tab:custos-pos-lancamento-ano3}
 
 \section{Projeção de Faturamento}
 
+\centering
 \begin{tabularx}{\textwidth}{X r r r}
 \toprule
 \rowcolor{azul-claro}
@@ -740,11 +812,13 @@ TMA (Taxa Mínima de Atratividade)     & \tcampo{} \\
 \textbf{Total} & & & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:projecao-faturamento}
 
 \section{Demonstrativo de Resultados (DRE) Projetado}
 
 \instrucao{Evolução dos resultados financeiros para 3 anos.}
 
+\centering
 \begin{tabularx}{\textwidth}{X r r r}
 \toprule
 \rowcolor{azul-claro}
@@ -763,6 +837,7 @@ TMA (Taxa Mínima de Atratividade)     & \tcampo{} \\
 8. Margem Líquida                  & \tcampo{} & \tcampo{} & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:dre-projetado}
 
 \section{Fluxo de Caixa Projetado}
 
@@ -799,6 +874,7 @@ Saldo Inicial  & & & & & & & & & & & & \\
 
 \subsection{Payback}
 
+\centering
 \begin{tabularx}{\textwidth}{X r}
 \toprule
 \rowcolor{azul-claro}
@@ -830,6 +906,7 @@ VPL = \sum_{t=1}^{n} \frac{FC_t}{(1 + i)^t} - I_0
 
 \subsection{Resumo dos Indicadores}
 
+\centering
 \begin{tabularx}{\textwidth}{X r}
 \toprule
 \rowcolor{azul-claro}
@@ -846,6 +923,7 @@ Ponto de Equilíbrio       & \tcampo{} \\
 Índice de Lucratividade   & \tcampo{} \\
 \bottomrule
 \end{tabularx}
+\label{tab:indicadores-viabilidade}
 
 \clearpage
 
@@ -858,6 +936,7 @@ Ponto de Equilíbrio       & \tcampo{} \\
 
 \instrucao{Avalie o negócio em três cenários: pessimista, realista e otimista.}
 
+\centering
 \begin{tabularx}{\textwidth}{X c c c}
 \toprule
 \rowcolor{azul-claro}
@@ -875,6 +954,7 @@ Payback             & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \instrucao{Classifique os riscos por probabilidade e impacto para priorizar a mitigação.}
 
+\centering
 \begin{tabularx}{\textwidth}{X c c X}
 \toprule
 \rowcolor{azul-claro}
@@ -900,6 +980,7 @@ Payback             & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \section{Análise SWOT}
 
+\centering
 \begin{tabularx}{\textwidth}{X X}
 \toprule
 \rowcolor{azul-claro}
@@ -922,6 +1003,7 @@ Payback             & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \instrucao{Específicas, Mensuráveis, Atingíveis, Relevantes, com Prazo.}
 
+\centering
 \begin{tabularx}{\textwidth}{X X c}
 \toprule
 \rowcolor{azul-claro}
@@ -937,6 +1019,7 @@ Payback             & \tcampo{} & \tcampo{} & \tcampo{} \\
 
 \instrucao{Matriz Produto-Mercado (Ansoff): penetração, desenvolvimento de produto, expansão de mercado ou diversificação?}
 
+\centering
 \begin{tabularx}{\textwidth}{X X}
 \toprule
 \rowcolor{azul-claro}
@@ -967,6 +1050,32 @@ Diversificação              & \tcampo{} \\
 \noindent\textbf{Conclusão:}
 
 \vspace{2cm}
+
+\begin{table}[htbp]
+\centering
+\caption{Cenário Realista -- Projeção consolidada}
+\label{tab:cenario-realista}
+\centering
+\begin{tabularx}{\textwidth}{X r}
+\toprule
+\rowcolor{azul-claro}
+\textbf{Indicador} & \textbf{Resultado} \\
+\midrule
+Investimento Inicial & R\$ \tcampo{} \\
+Faturamento Ano 1    & R\$ \tcampo{} \\
+Faturamento Ano 2    & R\$ \tcampo{} \\
+Faturamento Ano 3    & R\$ \tcampo{} \\
+Lucro Líquido Ano 1  & R\$ \tcampo{} \\
+Lucro Líquido Ano 2  & R\$ \tcampo{} \\
+Lucro Líquido Ano 3  & R\$ \tcampo{} \\
+Margem Líquida (Ano 3) & \tcampo{} \\
+Payback              & \tcampo{} \\
+VPL                  & R\$ \tcampo{} \\
+TIR                  & \tcampo{} \\
+Ponto de Equilíbrio  & \tcampo{} \\
+\bottomrule
+\end{tabularx}
+\end{table}
 
 \noindent\textbf{Próximos passos:}
 \begin{enumerate}[itemsep=0.3cm]
@@ -1024,7 +1133,7 @@ Diversificação              & \tcampo{} \\
 \centering
 \color{cinza-instrucao}
 \rule{0.6\textwidth}{0.4pt} \\[0.3cm]
-\textit{--- FIM DO MODELO ---} \\[0.3cm]
+\textit{--- FIM DO DOCUMENTO ---} \\[0.3cm]
 \textit{O plano de negócios é um documento vivo. Revise e atualize sempre que o mercado ou o negócio mudar.}
 \par
 }
